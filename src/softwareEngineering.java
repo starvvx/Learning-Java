@@ -8,11 +8,16 @@ public class softwareEngineering extends Departments{
     }
 
     @Override
+    public String markingScheme() {
+        return "Beta book to maine likhi hai naa";
+    }
+
+    @Override
     public void showDetails() {
-        super.showDetails();
         System.out.println("Department: " + getDepartmentName());
         System.out.println("Hod: " + getHodName());
         System.out.println("Student count: " + getStudentCount());
         System.out.println("Faculty count: " + getFacultyCount());
+        System.out.println("Marking Scheme: " + markingScheme());
     }
 }

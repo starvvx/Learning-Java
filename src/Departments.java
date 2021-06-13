@@ -1,7 +1,7 @@
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Departments {
+public abstract class Departments {
     private String departmentName;
     private String hodName;
     private int facultyCount;
@@ -18,6 +18,8 @@ public class Departments {
         this.studentCount = studentCount;
     }
 
+    public abstract String markingScheme();
+
     @Override
     public boolean equals(Object o) {
         if(o instanceof Departments) {
@@ -28,10 +30,6 @@ public class Departments {
         return false;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(departmentName, hodName, facultyCount, studentCount);
-    }
 
     public void setFacultyCount(int facultyCount) {
         this.facultyCount = facultyCount;
