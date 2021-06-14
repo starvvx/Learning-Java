@@ -4,14 +4,17 @@ public class Main {
 
     public static void main(String[] args) {
         studentMarks [] marksInMidsem = {
-                new studentMarks("Pushkar",10,20,30),
-                new studentMarks("Jaljala",20,30,40),
-                new studentMarks("muchhad",10,10,30),
-                new studentMarks("Anupam",40,40,30)
+                new studentMarks("Pushkar",90,80,70),
+                new studentMarks("Jaljala",80,90,40),
+                new studentMarks("muchhad",70,90,60),
+                new studentMarks("Anupam",90,90,90)
         };
-        Arrays.sort(marksInMidsem);
+
         for(studentMarks marks: marksInMidsem) {
-            marks.getDetails();
+            System.out.println(marks.getName());
+            for(grades grade: marks) {
+                System.out.println(grade.getGrade().getTitle());
+            }
         }
     }
 

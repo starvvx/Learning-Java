@@ -1,10 +1,14 @@
-public class studentMarks implements Comparable{
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class studentMarks implements Comparable<studentMarks>, Iterable<grades>{
 
     private  String name;
     private int maths;
     private int english;
     private int science;
     private int totalMarks;
+    private ArrayList<grades> gradesArrayList = new ArrayList<>();
 
     public studentMarks(String name, int mathsMarks, int englishMarks, int scienceMarks) {
 
@@ -13,12 +17,22 @@ public class studentMarks implements Comparable{
         this.english = englishMarks;
         this.science = scienceMarks;
         this.totalMarks = this.maths + this.english + this.science;
+        fillGradesList();
 
     }
 
-    public int compareTo(Object o) {
+    public void fillGradesList() {
+        gradesArrayList.add(new grades(this.maths));
+        gradesArrayList.add(new grades(this.english));
+        gradesArrayList.add(new grades(this.science));
+    }
 
-        studentMarks s1 = (studentMarks) o;
+    public Iterator<grades> iterator() {
+        return gradesArrayList.iterator();
+    }
+
+    public int compareTo(studentMarks s1) {
+
         int returnValue = s1.totalMarks - this.totalMarks;
 
         if(returnValue == 0) {
@@ -40,6 +54,10 @@ public class studentMarks implements Comparable{
         System.out.println(this.name + " Got " + this.maths + " in maths " +
                 this.english + " in english " + this.science + " in science and a total of "
                 + this.totalMarks + " marks");
+    }
+
+    public String getName() {
+        return this.name;
     }
 
 }
