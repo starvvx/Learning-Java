@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 
 public class studentMarks implements Comparable<studentMarks>, Iterable<grades>, getAvgMarks{
@@ -8,6 +9,7 @@ public class studentMarks implements Comparable<studentMarks>, Iterable<grades>,
     private int english;
     private int science;
     private int totalMarks;
+    private grades totalGrade;
     private double avgMarks;
     private ArrayList<grades> gradesArrayList = new ArrayList<>();
 
@@ -22,9 +24,26 @@ public class studentMarks implements Comparable<studentMarks>, Iterable<grades>,
 
     }
 
+    private class gradeIterable implements Iterable<grades>{
+        @Override
+        public Iterator<grades> iterator() {
+            grades [] grade = new grades[gradesArrayList.size()];
+            gradesArrayList.toArray(grade);
+            Arrays.sort(grade);
+            return Arrays.asList(grade).iterator();
+        }
+
+    }
+
+    public Iterable<grades> getSortedByGrades() {
+        gradeIterable gradeList = new gradeIterable();
+        return gradeList;
+    }
+
     @Override
     public double calculateAvgMarks() {
         avgMarks = (this.totalMarks)/3d;
+        this.totalGrade = new grades((int)avgMarks);
         return avgMarks;
     }
 
