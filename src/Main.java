@@ -11,10 +11,7 @@ public class Main {
         };
 
         for(studentMarks marks: marksInMidsem) {
-            System.out.println(marks.getName());
-            for(grades grade: marks) {
-                System.out.println(grade.getGrade().getTitle());
-            }
+            System.out.println(marks.calculateAvgMarks());
         }
     }
 

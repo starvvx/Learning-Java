@@ -1,13 +1,14 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class studentMarks implements Comparable<studentMarks>, Iterable<grades>{
+public class studentMarks implements Comparable<studentMarks>, Iterable<grades>, getAvgMarks{
 
     private  String name;
     private int maths;
     private int english;
     private int science;
     private int totalMarks;
+    private double avgMarks;
     private ArrayList<grades> gradesArrayList = new ArrayList<>();
 
     public studentMarks(String name, int mathsMarks, int englishMarks, int scienceMarks) {
@@ -19,6 +20,12 @@ public class studentMarks implements Comparable<studentMarks>, Iterable<grades>{
         this.totalMarks = this.maths + this.english + this.science;
         fillGradesList();
 
+    }
+
+    @Override
+    public double calculateAvgMarks() {
+        avgMarks = (this.totalMarks)/3d;
+        return avgMarks;
     }
 
     public void fillGradesList() {
