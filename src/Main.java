@@ -1,4 +1,7 @@
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 
 public class Main {
 
@@ -12,12 +15,15 @@ public class Main {
         };
 
         writeData(data);
-        readData();
+//        readData();
+
+        Collection<String > stringsInFile = copyData();
+        System.out.println(stringsInFile);
     }
 
     public static void writeData(String[] data) throws IOException{
         try(BufferedWriter bw =
-                new BufferedWriter(new FileWriter("file.txt"))) {
+                Files.newBufferedWriter(Paths.get("file.txt"))) {
             for(String string:data) {
                 bw.write(string);
                 bw.newLine();
@@ -27,7 +33,7 @@ public class Main {
 
     public static void readData() throws IOException{
         try(BufferedReader br =
-                    new BufferedReader(new FileReader("file.txt"))) {
+                    Files.newBufferedReader(Paths.get("file.txt"))) {
             String inValue;
             while((inValue = br.readLine()) != null) {
                 System.out.println(inValue);
@@ -35,4 +41,11 @@ public class Main {
         }
     }
 
-}
+    public static List<String> copyData() throws IOException{
+        List<String> line =
+                Files.readAllLines(Paths.get("file.txt"));
+        return line;
+    }
+
+
+};
