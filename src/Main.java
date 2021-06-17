@@ -1,61 +1,32 @@
-import java.io.*;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.charset.Charset;
-import java.nio.file.*;
+
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
-        String data[] = new String[]{
-                "Line 1",
-                "Line 2 2",
-                "Line 3 3 3",
-                "Line 4 4 4 4",
-                "Line 5 5 5 5 5"
-        };
+    public static void main(String[] args) {
+//      String Joiner Example
+        StringJoiner sj = new StringJoiner("} {","{","}");
+        sj.add("Value1").add("Value2").toString();
+        System.out.println(sj);
 
-        String data1[] = new String[]{"String 1", "String 2","String 3"};
-
-        try(FileSystem zipfs = openZip(Paths.get("myData.zip"))) {
-            writeToFileInZip(zipfs,data1);
-            copyToZip(zipfs);
-        } catch (Exception e) {
-            System.out.println(e.getClass().getSimpleName() + " - " + e.getMessage());
+//        using reg ex to split the string
+        String s1 = "apple apple and chapple please";
+        System.out.println(s1);
+        String [] s2= s1.split("\\b");
+        for(String s:s2) {
+            if(s.matches("\\w+")) {
+                System.out.println(s);
+            }
         }
 
-    }
-
-    private static FileSystem openZip(Path zipPath) throws IOException, URISyntaxException {
-        Map<String,String > providerProps = new HashMap<>();
-        providerProps.put("create","true");
-        URI zipUri = new URI("jar:file",zipPath.toUri().getPath(),null);
-        FileSystem zipFs = FileSystems.newFileSystem(zipUri,providerProps);
-        return zipFs;
-    }
-
-    private static void copyToZip(FileSystem zipFs) throws IOException{
-        Path srcFile = Paths.get("file.txt");
-        Path dstFile = zipFs.getPath("/copiedfile.txt");
-        Files.copy(srcFile,dstFile,StandardCopyOption.REPLACE_EXISTING);
-    }
-
-    private static void writeToFileInZip(FileSystem zipFs, String[] data) throws IOException {
-
-//        one way of doing it
-//        try(BufferedWriter bw = Files.newBufferedWriter(zipFs.getPath("/newFile.txt"))) {
-//            for(String string:data) {
-//                bw.write(string);
-//                bw.newLine();
-//            }
-//        }
-
-//        other way of doing the same
-        Files.write(zipFs.getPath("/newFile.txt"),Arrays.asList(data),
-                Charset.defaultCharset(), StandardOpenOption.CREATE);
-//        we did aslist because it do not have any interface for string datatype
-
+//        using pattern class for the same
+        Pattern pattern = Pattern.compile("app+");
+        Matcher matcher = pattern.matcher(s1);
+        while(matcher.find()) {
+            System.out.println(matcher.group());
+        }
     }
 
 };
