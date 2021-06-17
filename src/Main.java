@@ -1,28 +1,38 @@
-import java.util.*;
-import java.util.stream.Collectors;
+import java.io.*;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        String data[] = new String[]{
+                "Line 1",
+                "Line 2 2",
+                "Line 3 3 3",
+                "Line 4 4 4 4",
+                "Line 5 5 5 5 5"
+        };
 
-        List<Integer> products = new ArrayList<>();
-        products.add(1);products.add(2);products.add(3);products.add(4);
-        products.add(1);products.add(2);products.add(3);products.add(4);
+        writeData(data);
+        readData();
+    }
 
-        List<Integer> newProducts = Collections.unmodifiableList(products);
+    public static void writeData(String[] data) throws IOException{
+        try(BufferedWriter bw =
+                new BufferedWriter(new FileWriter("file.txt"))) {
+            for(String string:data) {
+                bw.write(string);
+                bw.newLine();
+            }
+        }
+    }
 
-//        newProducts.add(12); will generate an error
-
-        System.out.println(newProducts);
-        products.add(12);
-//        changes to the original list will get reflected in the unmodifiable list
-//        but if the list is not unmodifiable and just a simple copy then these changes will
-//        not be seen in the new list and this is true for all the object of collections
-
-        System.out.println(newProducts);
-
-        Map<Integer, String> names = Map.of(1,"one",2,"Two"); // factory method for map.
-//        Also this Map.of() method is unmodifiable
+    public static void readData() throws IOException{
+        try(BufferedReader br =
+                    new BufferedReader(new FileReader("file.txt"))) {
+            String inValue;
+            while((inValue = br.readLine()) != null) {
+                System.out.println(inValue);
+            }
+        }
     }
 
 }
