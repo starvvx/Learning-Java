@@ -1,6 +1,6 @@
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Writer;
 import java.lang.reflect.Field;
@@ -13,14 +13,15 @@ public class Main {
     public static void main(String[] args) {
         Properties props = new Properties();
 
-        props.setProperty("name","Vaibhav");
-        props.setProperty("Surname", "verma");
-
-        try(OutputStream out = Files.newOutputStream(Paths.get("props.Xml"))) {
-            props.storeToXML(out, "My comment");
-        } catch (Exception ex) {
+        try(InputStream in = Files.newInputStream(Paths.get("props.Xml"))) {
+            props.loadFromXML(in);
+        }
+        catch (Exception ex) {
             System.out.println(ex.getClass().getSimpleName() + " - " + ex.getMessage());
         }
+        String val1 = props.getProperty("name");
+        String val2 = props.getProperty("Surname");
+        System.out.println(val1 + " " + val2);
     }
 
 };
