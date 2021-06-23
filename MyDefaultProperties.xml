@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-<comment>My comment</comment>
+<comment>Ye hai properties</comment>
 <entry key="name">Vaibhav</entry>
 <entry key="Surname">verma</entry>
 </properties>

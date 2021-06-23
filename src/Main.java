@@ -1,27 +1,55 @@
 
-import java.io.BufferedWriter;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.Writer;
-import java.lang.reflect.Field;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.*;
+import java.util.logging.Formatter;
 
 public class Main {
-
-    public static void main(String[] args) {
-        Properties props = new Properties();
-
-        try(InputStream in = Files.newInputStream(Paths.get("props.Xml"))) {
-            props.loadFromXML(in);
+    static class Adder implements Runnable{
+        private String infile, outfile;
+        public Adder(String infile, String outfile) {
+            this.infile = infile;
+            this.outfile = outfile;
         }
-        catch (Exception ex) {
-            System.out.println(ex.getClass().getSimpleName() + " - " + ex.getMessage());
+        public void doadd() throws Exception{
+            int total = 0;
+            String line = null;
+            try(BufferedReader reader = Files.newBufferedReader(Paths.get(this.infile))) {
+                while((line = reader.readLine()) != null) {
+                    total += Integer.parseInt(line);
+                }
+            }
+            try(BufferedWriter writer = Files.newBufferedWriter(Paths.get(this.outfile))) {
+                writer.write("Total: " + total);
+            }
         }
-        String val1 = props.getProperty("name");
-        String val2 = props.getProperty("Surname");
-        System.out.println(val1 + " " + val2);
+        public void run() {
+            try {
+                doadd();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
+    public static void main(String[] args) throws InterruptedException {
+        String[] infiles = {"file1.txt","file2.txt"};
+        String[] outfiles = {"file1.out.txt","file2.out.txt"};
+        ExecutorService es = Executors.newFixedThreadPool(3);
+        for(int i = 0;i<infiles.length;i++) {
+            Adder adder = new Adder(infiles[i],outfiles[i]);
+            es.submit(adder);
+        }
+        try {
+            es.shutdown();
+            es.awaitTermination(2, TimeUnit.SECONDS);
+        } catch (Exception e) {
+            System.out.println(e.getClass().getSimpleName() + " - " + e.getMessage());
+        }
 
+    }
 };
