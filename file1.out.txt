@@ -1,1 +1,1 @@
-Total: 100
+total: 10
