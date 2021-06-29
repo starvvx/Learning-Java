@@ -1,6 +1,7 @@
 
 import java.io.*;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -13,6 +14,9 @@ class temp {
     temp(int x) {
         this.x = x;
     }
+    public void calc() {
+        x++;
+    }
 }
 
 
@@ -21,9 +25,12 @@ public class Main {
         temp t = new temp(5);
         Class<?> c = t.getClass();
 //        doWork(t);
-        Field declaredField[] = c.getDeclaredFields();
-        for(Field field:declaredField) {
-            System.out.println(field.getName() + " " + field.getType());
+        Method[] methods = c.getMethods();
+        for(Method method:methods) {
+//            if(method.getDeclaringClass() != Object.class) {
+//                System.out.println(method.getName());
+//            }
+            System.out.println(method.getName());
         }
     }
     public static void doWork(Object obj) {
