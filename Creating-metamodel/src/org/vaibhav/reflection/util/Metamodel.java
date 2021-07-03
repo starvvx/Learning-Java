@@ -56,6 +56,12 @@ public class Metamodel<T> {
                 " (" +  columnElement + ") values (" + questionMarksElements + ")";
     }
 
+    public String buildSelectRequest() {
+        String columnElement = buildColumnNames();
+        return "select " + columnElement + " from " + this.clss.getSimpleName() +
+                " where " + getPrimaryKey().getName() + " = ?";
+    }
+
     public String buildColumnNames() {
         String primaryKeyColumnName = getPrimaryKey().getName();
         List<String> columnNames =

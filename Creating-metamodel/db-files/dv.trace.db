@@ -1,0 +1,69 @@
+2021-07-03 17:13:21 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT ID, NAME, AGEFROMPERSON WHERE ID ?[*]"; SQL statement:
+select id, name, agefromPerson where id ? [42000-200]
+2021-07-03 17:15:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT ID, NAME, AGE FROM PERSON WHERE ID ?[*]"; SQL statement:
+select id, name, age from Person where id ? [42000-200]
+2021-07-03 17:16:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT ID, NAME, AGE FROM PERSON WHERE ID ?[*]"; SQL statement:
+select id, name, age from Person where id ? [42000-200]
+2021-07-03 17:20:18 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT ID, NAME, AGE FROM PERSON WHERE ID ?[*]"; SQL statement:
+select id, name, age from Person where id ? [42000-200]
+2021-07-03 17:20:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT ID, NAME, AGE FROM PERSON WHERE ID ?[*]"; SQL statement:
+select id, name, age from Person where id ? [42000-200]
+2021-07-03 17:26:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT ID, NAME, AGE FROM PERSON WHERE ID ?[*]"; SQL statement:
+select id, name, age from Person where id ? [42000-200]
+2021-07-03 17:33:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Parameter "#1" is not set; SQL statement:
+select id, name, age from Person where id = ? [90012-200]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:590)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
+	at org.h2.message.DbException.get(DbException.java:205)
+	at org.h2.message.DbException.get(DbException.java:181)
+	at org.h2.expression.Parameter.checkSet(Parameter.java:83)
+	at org.h2.command.Prepared.checkParameters(Prepared.java:182)
+	at org.h2.command.CommandContainer.query(CommandContainer.java:284)
+	at org.h2.command.Command.executeQuery(Command.java:195)
+	at org.h2.jdbc.JdbcPreparedStatement.executeQuery(JdbcPreparedStatement.java:114)
+	at org.vaibhav.reflection.orm.EntityManagerImpl.find(EntityManagerImpl.java:79)
+	at org.vaibhav.reflection.WritingObjects.main(WritingObjects.java:15)
+2021-07-03 18:11:12 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Column "K_ID" not found; SQL statement:
+select k_id, c_name, c_age from Person where k_id = ? [42122-200]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:453)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
+	at org.h2.message.DbException.get(DbException.java:205)
+	at org.h2.message.DbException.get(DbException.java:181)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:163)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:145)
+	at org.h2.command.dml.Select.prepare(Select.java:1206)
+	at org.h2.command.Parser.prepareCommand(Parser.java:744)
+	at org.h2.engine.Session.prepareLocal(Session.java:657)
+	at org.h2.engine.Session.prepareCommand(Session.java:595)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1235)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:76)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:352)
+	at org.vaibhav.reflection.orm.AbstractEntityManager.prepareStatementWith(AbstractEntityManager.java:27)
+	at org.vaibhav.reflection.orm.AbstractEntityManager.find(AbstractEntityManager.java:78)
+	at org.vaibhav.reflection.WritingObjects.main(WritingObjects.java:15)
+2021-07-03 18:13:11 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PERSON" already exists; SQL statement:
+create table Person(
+k_id int primary key,
+c_age int,
+c_name varchar(40)
+) [42101-200]
+2021-07-03 18:13:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE PERSON(
+K_ID INT PRIMARY KEY,
+C_AGE INT,
+C_NAME VARCHAR(40)
+)PERSON[*]"; SQL statement:
+create table Person(
+k_id int primary key,
+c_age int,
+c_name varchar(40)
+)PERSON [42000-200]
